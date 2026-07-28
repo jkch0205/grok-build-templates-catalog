@@ -274,7 +274,8 @@ function renderDetail(id) {
 
 async function mount() {
   if (!DATA) {
-    DATA = await fetch("/data.json").then((r) => r.json());
+    const url = window.__DATA_URL__ || "/data.json";
+    DATA = await fetch(url).then((r) => r.json());
   }
   const r = route();
   const app = document.getElementById("app");
