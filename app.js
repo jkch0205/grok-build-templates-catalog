@@ -1,295 +1,76 @@
-const ICON = {
-  game: "🎮",
-  creative: "✨",
-  music: "♪",
-  "3d-sim": "🌐",
-  productivity: "📋",
-  "math-science": "∑",
-  web: "◈",
-  utility: "⚡",
-};
 
+const EMBEDDED_DATA = {"templates":[{"id":"endless-runner","name":"Endless runner","category":"game","tagline":"One-thumb arcade loop that never ends","summary":"Classic runner: dodge obstacles, rack up distance, restart instantly. Perfect for a playable game prototype with score and difficulty curve.","purpose":"Use it to validate the casual-game loop of short sessions + one more try. Great bones for skins, power-ups, and leaderboards. Ideal start for game jams, mobile ad minigames, and brand promo games.","bestFor":["Mobile touch demos","Score and combo experiments","Character or skin marketplace ideas","Short-session addiction tests"],"features":["Auto-scroll or runner motion loop","Simple inputs (jump/slide)","Obstacles, coins, distance score","Rising difficulty curve","Instant restart after game over"],"iterateIdeas":["Neon city / jungle / space themes","Double jump and shield power-ups","Daily challenge + high-score save","SFX and combo UI"],"audience":"Casual players, indie prototypers, marketing minigames","difficulty":"beginner","keywords":["runner","arcade","mobile","score"],"practiceOrder":4},{"id":"bio-page","name":"Bio page","category":"web","tagline":"Your whole presence, compressed to one screen","summary":"Profile, short intro, and priority links in a personal hub. Link-in-bio or QR landing for cards and events.","purpose":"Ship a single landing point for name, role, and where to go next. Creators, freelancers, teachers, and speakers collect only the links that matter. Shareability and mobile readability beat SEO.","bestFor":["Instagram/YouTube profile link","Business-card QR landing","Speaker intro page","Multi-link hub"],"features":["Avatar, name, one-line bio","Prioritized link buttons","Social icon row","Mobile-first vertical layout","Theme color and background tweaks"],"iterateIdeas":["Language toggle","Newsletter signup","Recent work thumbnail grid","Dark/light switch"],"audience":"Creators, freelancers, personal branding","difficulty":"beginner","keywords":["linktree","profile","links","bio"],"practiceOrder":1},{"id":"revenue-dashboard","name":"Revenue dashboard","category":"productivity","tagline":"KPIs and growth in one command board","summary":"Cards, charts, and tables for revenue, MRR, conversion, and other business KPIs.","purpose":"Visualize the number story fast for startups, shops, and SaaS. Mock data first to validate reporting UI, or use as a live board for investors and teams.","bestFor":["Weekly/monthly revenue UI","KPI card layout tests","Chart layout prototypes","Executive demo screens"],"features":["Summary KPI cards","Time-series revenue chart","Category/channel comparison","Period filters (7/30/90d)","Detail table"],"iterateIdeas":["Goal attainment gauges","Cohort/retention panels","CSV upload or connectors","Team/region segments"],"audience":"Founders, growth, finance, agencies","difficulty":"intermediate","keywords":["dashboard","mrr","kpi","chart"]},{"id":"3d-globe","name":"3D globe","category":"3d-sim","tagline":"Spin and zoom an interactive Earth","summary":"Drag/zoom globe with markers, arcs, and region highlights.","purpose":"Show global presence with more immersion than a flat map. Strong for landing heroes, data storytelling, and keynote visuals.","bestFor":["Global user/site distribution","Landing page hero","Travel and logistics stories","Interactive exhibit kiosks"],"features":["Rotatable, zoomable sphere","Pin/hotspot markers","Hover info cards","Connection arcs between cities","Atmospheric lighting"],"iterateIdeas":["Live data feed","Country click-through stats","Day/night texture","Search-to-fly-to location"],"audience":"SaaS marketing, logistics, education, events","difficulty":"intermediate","keywords":["globe","3d","map","geo"]},{"id":"particle-field","name":"Particle field","category":"creative","tagline":"Thousands of points reacting to motion","summary":"Interactive particle canvas driven by pointer, audio, or noise fields.","purpose":"Hero backgrounds, generative art, and tech-brand atmosphere. Pure visual play without heavy product logic.","bestFor":["Landing hero backgrounds","Generative art sketches","Music-reactive visuals","Tech brand mood pieces"],"features":["Dense particle system","Pointer attraction/repulsion","Color and size parameters","Optional audio reactivity","Performance-minded canvas/WebGL"],"iterateIdeas":["Preset gallery","Export still/GIF","Mobile gyro input","Shader material swap"],"audience":"Designers, creative coders, brand sites","difficulty":"beginner","keywords":["particles","canvas","generative","vfx"]},{"id":"drum-machine","name":"Drum machine","category":"music","tagline":"Tap pads, build a beat, loop it","summary":"Step sequencer or pad grid for kicks, snares, hats, and patterns.","purpose":"Prototype rhythm UX, teach beat basics, or ship a fun audio toy. Clear feedback between UI and sound.","bestFor":["Music education demos","Beat-making toys","Podcast/jingle sketchpads","Rhythm game mechanics"],"features":["Pad or step grid","Tempo control","Multiple instrument tracks","Play/stop loop","Pattern save (local)"],"iterateIdeas":["Swing and humanize","Sample upload","Shareable pattern codes","Visualizer overlay"],"audience":"Musicians, educators, product explorers","difficulty":"intermediate","keywords":["drums","sequencer","beat","audio"]},{"id":"physics-sandbox","name":"Physics sandbox","category":"3d-sim","tagline":"Drop, throw, and collide in a toy world","summary":"2D/3D bodies with gravity, bounce, and constraints you can poke.","purpose":"Teach physics intuition or stress-test interaction ideas. Great for playful demos and science explainers.","bestFor":["Physics education","Interaction R&D","Playful landing demos","Prototype destruction/ soft-body ideas"],"features":["Rigid bodies and collisions","Gravity / restitution controls","Spawn and drag objects","Constraints (hinge/spring)","Reset scene"],"iterateIdeas":["Explosions and particles","Vehicle chassis","Ragdoll","Slow-motion scrub"],"audience":"Educators, game designers, curious browsers","difficulty":"intermediate","keywords":["physics","sandbox","collision","sim"]},{"id":"color-palette","name":"Color palette","category":"utility","tagline":"Generate and export harmonious palettes","summary":"Pick a seed color, derive scales, check contrast, copy tokens.","purpose":"Design system starters and brand exploration. Export CSS variables or Tailwind-friendly tokens.","bestFor":["Brand color exploration","Design-token export","Contrast accessibility checks","Moodboard color sets"],"features":["Seed color picker","Harmony modes (analogous, triad…)","Contrast ratios","Copy hex/HSL/CSS vars","Shade/tint scales"],"iterateIdeas":["Image color extraction","WCAG pass/fail labels","Figma token JSON","Locked brand primaries"],"audience":"Designers, frontend devs, brand teams","difficulty":"beginner","keywords":["color","palette","tokens","contrast"]},{"id":"kanban-board","name":"Kanban board","category":"productivity","tagline":"Cards moving across columns","summary":"Todo → Doing → Done board with drag-and-drop cards.","purpose":"Lightweight project flow for personal tasks or team demos without full Jira weight.","bestFor":["Personal task flow","Sprint board demos","Workshop facilitation","Lightweight CRM stages"],"features":["Multiple columns","Drag-and-drop cards","Labels and due dates","Add/edit/delete cards","Local persistence"],"iterateIdeas":["WIP limits","Swimlanes","Assignees and filters","Import/export JSON"],"audience":"Makers, students, small teams","difficulty":"beginner","keywords":["kanban","tasks","board","agile"],"practiceOrder":5},{"id":"function-grapher","name":"Function grapher","category":"math-science","tagline":"Type y = f(x) and see the curve","summary":"Plot functions with pan/zoom, multiple series, and samples.","purpose":"Math teaching, quick analysis, and “what does this formula look like?” exploration.","bestFor":["Classroom graphing","Formula intuition","Compare multiple functions","STEM demos"],"features":["Expression input","Pan/zoom axes","Multi-function overlays","Trace/hover values","Domain/range hints"],"iterateIdeas":["Parametric/polar modes","Derivatives overlay","CSV plot import","Inequality shading"],"audience":"Students, teachers, engineers","difficulty":"intermediate","keywords":["math","graph","function","plot"]},{"id":"3d-maze","name":"3D maze","category":"game","tagline":"First-person corridors and dead ends","summary":"Generate or hand-author a maze; navigate with WASD/touch to the exit.","purpose":"Spatial puzzles and FPS-lite movement tests without combat complexity.","bestFor":["Spatial puzzle demos","Pointer-lock movement tests","Escape-room style loops","Procedural maze showcases"],"features":["Maze generation or fixed map","First-person or top-down 3D","Collision with walls","Exit goal + timer/score","Minimap optional"],"iterateIdeas":["Keys and locked doors","Moving walls","Multi-level towers","Ghost AI pursuit"],"audience":"Puzzle fans, game learners","difficulty":"intermediate","keywords":["maze","3d","fps-lite","puzzle"]},{"id":"landing-page","name":"Landing page","category":"web","tagline":"Hero, proof, CTA — conversion story","summary":"Marketing landing with hero, features, social proof, and primary CTA.","purpose":"Launch pages, waitlists, and product stories. Structure beats decoration: clear value prop and next step.","bestFor":["Product launches","Waitlist campaigns","SaaS marketing sites","Event promotion"],"features":["Hero with headline + CTA","Feature grid","Testimonials/logos","Pricing or FAQ block","Responsive sections"],"iterateIdeas":["A/B headline variants","Email capture","Animated product mock","i18n sections"],"audience":"Founders, marketers, freelancers","difficulty":"beginner","keywords":["landing","marketing","cta","saas"],"practiceOrder":2},{"id":"world-map","name":"World map","category":"web","tagline":"Interactive flat map with regions and pins","summary":"2D world/region map with tooltips, filters, and markers.","purpose":"When you need clarity over 3D flair—ops dashboards, coverage maps, election or logistics views.","bestFor":["Coverage / availability maps","Regional analytics","Travel itineraries","News explainers"],"features":["Zoomable/pannable map","Region hover states","Marker clusters","Legend and filters","Responsive container"],"iterateIdeas":["Choropleth data binding","Time scrubber","GeoJSON import","Side detail panel"],"audience":"Ops, journalism, education, travel","difficulty":"intermediate","keywords":["map","geo","regions","markers"]},{"id":"solar-system","name":"Solar system","category":"3d-sim","tagline":"Orbit the planets at your own pace","summary":"Scaled (or stylized) solar system with orbits, labels, and camera paths.","purpose":"Science education and awe-driven marketing. Trade true scale for readability when needed.","bestFor":["Astronomy education","Museum kiosks","Space-brand campaigns","Camera path demos"],"features":["Orbital animation","Planet select + info","Speed control","Labels and trails","Free camera orbit"],"iterateIdeas":["Moons and asteroid belt","Real ephemeris data","Eclipse mode","Spaceship flythrough"],"audience":"Educators, kids STEM, space brands","difficulty":"beginner","keywords":["space","planets","orbit","edu"]},{"id":"fractal-tree","name":"Fractal tree","category":"creative","tagline":"Recursion you can see grow","summary":"Branching tree grown by recursive rules; tweak angle, depth, and wind.","purpose":"Teach recursion and create organic generative art with few controls.","bestFor":["Recursion teaching","Generative art","Calm interactive backgrounds","Workshop live-coding"],"features":["Recursive branch drawing","Depth/angle/ratio sliders","Color gradients","Optional sway animation","Regenerate seed"],"iterateIdeas":["L-systems grammar","Seasons palette","Export SVG","Lightning / river variants"],"audience":"Educators, creative coders","difficulty":"beginner","keywords":["fractal","tree","recursion","art"]},{"id":"synth-keyboard","name":"Synth keyboard","category":"music","tagline":"Play notes; shape the tone","summary":"On-screen keyboard with oscillators, envelope, and basic effects.","purpose":"Music UX prototypes and playful performance widgets for the web.","bestFor":["Web audio demos","Music education","Performance toys","Sound-design intros"],"features":["Piano-style keys","Waveform select","ADSR envelope","Octave shift","Sustain/hold"],"iterateIdeas":["Polyphony limits UI","Preset patches","MIDI input","Record and export"],"audience":"Musicians, learners, audio devs","difficulty":"intermediate","keywords":["synth","keyboard","webaudio","music"]},{"id":"boids-flock","name":"Boids flock","category":"creative","tagline":"Emergent flocking from simple rules","summary":"Steering agents with separation, alignment, cohesion.","purpose":"Explain complexity science and ship living backgrounds that feel alive.","bestFor":["Emergence demos","Living backgrounds","AI steering teaching","Installation art"],"features":["Many autonomous agents","Three classic boid rules","Obstacle avoidance option","Parameter sliders","2D or simple 3D"],"iterateIdeas":["Predator agent","Food targets","Species colors","VR/large canvas mode"],"audience":"Educators, creative technologists","difficulty":"intermediate","keywords":["boids","flock","emergence","ai"]},{"id":"qr-generator","name":"QR generator","category":"utility","tagline":"Text in, scannable code out","summary":"Type URL/text, style the QR, download PNG/SVG.","purpose":"Event check-in, packaging, bio-page deep links—utility with zero learning curve.","bestFor":["Event tickets and posters","Packaging and menus","Profile deep links","Wi-Fi share codes"],"features":["Text/URL input","Error-correction level","Color and quiet zone","PNG/SVG download","Live preview"],"iterateIdeas":["Logo in center","Batch CSV generate","Dynamic redirect codes","Print template"],"audience":"Marketers, organizers, small business","difficulty":"beginner","keywords":["qr","utility","share","print"]},{"id":"pomodoro-timer","name":"Pomodoro timer","category":"productivity","tagline":"Focus blocks with honest breaks","summary":"25/5-style timer with sessions, pauses, and optional sounds.","purpose":"Personal focus ritual and productivity UX demos.","bestFor":["Deep work sessions","Study timers","Team focus rooms (UI)","Habit stacking demos"],"features":["Work/break intervals","Start/pause/reset","Session counter","Optional chime","Progress ring UI"],"iterateIdeas":["Custom durations","Task label per session","Daily stats","Block-site integration mock"],"audience":"Students, makers, remote workers","difficulty":"beginner","keywords":["pomodoro","timer","focus","productivity"]},{"id":"prime-explorer","name":"Prime explorer","category":"math-science","tagline":"Hunt primes and patterns","summary":"Visual/numeric explorer for primes, sieves, and distributions.","purpose":"Make number theory tangible for classrooms and curious adults.","bestFor":["Classroom number theory","Sieve visualizations","Math competition prep","STEM outreach"],"features":["Prime list/generator","Sieve animation","Factorization helper","Plot prime gaps","Interactive range controls"],"iterateIdeas":["Primality tests comparison","Ulam spiral","Crypto prime size demo","Quiz mode"],"audience":"Students, teachers, math fans","difficulty":"intermediate","keywords":["prime","math","sieve","number-theory"]},{"id":"space-shooter","name":"Space shooter","category":"game","tagline":"Dodge, shoot, survive waves","summary":"Top-down or side scroller with enemies, bullets, and power-ups.","purpose":"Arcade combat loops and juice (shake, flash, particles) practice.","bestFor":["Arcade combat prototypes","Boss-phase experiments","Power-up economy tests","Couch mini-games"],"features":["Player ship controls","Enemy waves","Projectile systems","Lives/score","Power-ups"],"iterateIdeas":["Boss fights","Co-op shared controls (local)","Weapon tree","Stage select"],"audience":"Arcade fans, game jammers","difficulty":"intermediate","keywords":["shooter","arcade","space","waves"]},{"id":"portfolio","name":"Portfolio","category":"web","tagline":"Case studies that prove your craft","summary":"Project grid, case study pages, about, and contact.","purpose":"Professionals who need credible proof, not just a bio link list.","bestFor":["Designer/dev portfolios","Agency showcases","Student grad sites","Photography grids"],"features":["Project grid + filters","Case study layout","About section","Contact CTA","Responsive imagery"],"iterateIdeas":["CMS/MDX projects","Motion on scroll","Password-protected work","Testimonials"],"audience":"Designers, developers, freelancers","difficulty":"beginner","keywords":["portfolio","case-study","work","personal"]},{"id":"network-graph","name":"Network graph","category":"math-science","tagline":"Nodes and edges you can explore","summary":"Force-directed or hierarchical graph of relationships.","purpose":"Org charts, knowledge graphs, social maps, dependency views.","bestFor":["Knowledge maps","Org/team graphs","Dependency visualization","Social network stories"],"features":["Node-link diagram","Force or tree layout","Hover details","Zoom/pan","Search node"],"iterateIdeas":["Community detection colors","Time evolution","Import GraphML/JSON","Side inspector"],"audience":"Analysts, researchers, PMs","difficulty":"advanced","keywords":["graph","network","nodes","viz"]},{"id":"product-viewer","name":"Product viewer","category":"web","tagline":"Spin the product; sell the detail","summary":"360° or orbit viewer for a product with hotspots.","purpose":"E-commerce detail pages and pitch decks that need tangible product feel.","bestFor":["E-commerce PDP demos","Hardware launches","Configurator previews","Trade-show kiosks"],"features":["Orbit/360 controls","Hotspot callouts","Material/color variants","Zoom detail","Mobile gestures"],"iterateIdeas":["AR try-on link","SKU switcher","Exploded view","Add-to-cart mock"],"audience":"E-comm, hardware, marketing","difficulty":"intermediate","keywords":["product","3d","ecommerce","viewer"]},{"id":"mandelbrot-zoom","name":"Mandelbrot zoom","category":"creative","tagline":"Infinite zoom into the set","summary":"Explore the Mandelbrot (or Julia) set with smooth zoom and palettes.","purpose":"Math-meets-art demos; contemplative interactive posters.","bestFor":["Math art exhibits","Fractal education","Album visual toys","Screensaver-like pages"],"features":["Deep zoom rendering","Palette controls","Julia set toggle","Reset view","Touch pinch zoom"],"iterateIdeas":["WebGL speedups","Keyframe zoom tours","High-res export","Synced dual views"],"audience":"Math artists, educators","difficulty":"advanced","keywords":["mandelbrot","fractal","zoom","math-art"]},{"id":"audio-visualizer","name":"Audio visualizer","category":"music","tagline":"Sound becomes motion and light","summary":"Bars, waves, or particles driven by analyser frequency data.","purpose":"Concert-style visuals, podcast branding, and audio feature demos.","bestFor":["Music player skins","DJ/stream overlays","Podcast brand pages","Audio feature demos"],"features":["Mic or file input","Frequency analyser","Multiple viz modes","Color reactivity","Fullscreen"],"iterateIdeas":["Beat detection pulses","Preset scenes","Record canvas","Spotify-like mock UI"],"audience":"Musicians, streamers, frontend demos","difficulty":"beginner","keywords":["visualizer","audio","frequency","music"]},{"id":"game-of-life","name":"Game of Life","category":"math-science","tagline":"Cellular automata, classic rules","summary":"Grid evolves by Conway rules; paint cells, run, step, randomize.","purpose":"Emergence and complexity with almost no UI chrome.","bestFor":["CS education","Emergence talks","Generative backgrounds","Workshop live demos"],"features":["Cell grid","Play/pause/step","Paint and erase","Randomize/clear","Speed control"],"iterateIdeas":["Custom rule sets","Toroidal wrap toggle","Pattern library (glider…)","Huge board WebGL"],"audience":"Educators, programmers, theorists","difficulty":"beginner","keywords":["conway","automata","cells","emergence"]},{"id":"pixel-art","name":"Pixel art","category":"creative","tagline":"Draw on a tiny grid, big personality","summary":"Pixel canvas with palette, export, and optional animation frames.","purpose":"Game asset sketches and nostalgic creative tools.","bestFor":["Sprite sketching","Kids creative tools","Game jam art","NFT/avatar drafts (careful)"],"features":["Pixel grid editor","Palette","Zoom and grid snap","Export PNG","Undo/redo"],"iterateIdeas":["Onion-skin frames","Tile stamp","Share link encodings","Sprite sheet export"],"audience":"Pixel artists, game jammers, kids","difficulty":"beginner","keywords":["pixel","draw","sprite","art"]},{"id":"habit-tracker","name":"Habit tracker","category":"productivity","tagline":"Streaks that keep you honest","summary":"Daily habits with checkmarks, streaks, and simple stats.","purpose":"Behavior design demos and personal wellness trackers.","bestFor":["Personal routines","Wellness demos","Student study habits","Team ritual boards (light)"],"features":["Habit list","Daily check-ins","Streak counters","Weekly heatmap","Local save"],"iterateIdeas":["Reminders UI","Categories","Export CSV","Motivational copy variants"],"audience":"Individuals, coaches, students","difficulty":"beginner","keywords":["habits","streaks","tracker","wellness"]},{"id":"vector-field","name":"Vector field","category":"math-science","tagline":"Arrows that show flow","summary":"Visualize vector fields, streamlines, and particles advected by the field.","purpose":"Vector calculus intuition and beautiful science communication.","bestFor":["Vector calculus labs","Fluid intuition demos","Science museum pieces","Generative fields"],"features":["Field function presets","Arrow grid","Streamlines","Particle advection","Parameter sliders"],"iterateIdeas":["Custom equation input","Curl/divergence overlays","3D field slice","Data-driven wind maps"],"audience":"STEM students, educators, viz folks","difficulty":"advanced","keywords":["vector","field","calculus","flow"]},{"id":"tower-defense","name":"Tower defense","category":"game","tagline":"Place towers, stop the wave","summary":"Path-based TD with towers, enemies, economy, and waves.","purpose":"Strategy loop and balancing practice in a readable genre.","bestFor":["Strategy game jams","Balance sandbox","Educational resource management","Mobile TD prototypes"],"features":["Enemy path","Tower place/upgrade","Wave spawner","Gold/lives economy","Tower types"],"iterateIdeas":["Hero units","Flying path enemies","Map editor","Endless mode"],"audience":"Strategy players, designers","difficulty":"advanced","keywords":["td","strategy","towers","waves"]},{"id":"event-page","name":"Event page","category":"web","tagline":"Date, place, why show up","summary":"Event landing with agenda, speakers, venue, and RSVP CTA.","purpose":"Conferences, meetups, launches, weddings—time-bound stories.","bestFor":["Meetup pages","Conference microsites","Product launch events","Workshop registration"],"features":["Hero with date/location","Agenda timeline","Speaker grid","RSVP/register CTA","Map or venue block"],"iterateIdeas":["Countdown clock","Multi-day tabs","Calendar add links","Ticket tiers UI"],"audience":"Organizers, communities, marketers","difficulty":"beginner","keywords":["event","rsvp","conference","meetup"]},{"id":"poll-app","name":"Poll app","category":"utility","tagline":"Ask, vote, see the split","summary":"Create a question, vote once, view live-ish results.","purpose":"Audience interaction, classroom clicks, lightweight research UX.","bestFor":["Classroom clickers","Stream audience polls","Team decision checks","Marketing preference tests"],"features":["Question + options","Vote submission","Results bars","Shareable poll id (local/demo)","Responsive UI"],"iterateIdeas":["Multi-question surveys","Auth-gated one person one vote","QR to poll","Export results"],"audience":"Teachers, streamers, PMs","difficulty":"beginner","keywords":["poll","vote","survey","results"]},{"id":"starfield","name":"Starfield","category":"creative","tagline":"Warp speed through stars","summary":"Parallax starfield with speed and perspective controls.","purpose":"Sci-fi atmospheres and ultra-light hero backgrounds.","bestFor":["Sci-fi landing heroes","Loading atmospheres","VJ loops","Game title screens"],"features":["Parallax stars","Speed control","Perspective warp","Twinkle variation","Fullscreen canvas"],"iterateIdeas":["Nebula layers","Ship cockpit frame","Hyperspace burst","Mouse parallax"],"audience":"Brand sites, games, stream overlays","difficulty":"beginner","keywords":["stars","space","parallax","vfx"]},{"id":"kaleidoscope","name":"Kaleidoscope","category":"creative","tagline":"Mirror the world into patterns","summary":"Symmetry kaleidoscope from pointer, webcam, or images.","purpose":"Playful visual toys and brand moments that reward motion.","bestFor":["Interactive art walls","Kids creativity","Brand campaign toys","Meditation visuals"],"features":["Symmetry segments","Pointer painting","Color controls","Optional webcam","Snapshot export"],"iterateIdeas":["Image stamp brushes","Audio pulse","Post-process glow","Print-quality export"],"audience":"Artists, kids, brand activations","difficulty":"beginner","keywords":["kaleidoscope","symmetry","art","mirror"]},{"id":"theremin","name":"Theremin","category":"music","tagline":"Pitch and volume in the air","summary":"Pointer/Y-axis style theremin using Web Audio.","purpose":"Playful music UX and accessible “no keys” performance demos.","bestFor":["Museum music interactives","Web Audio teaching","Performance art","Gesture→sound R&D"],"features":["Pointer-driven pitch","Volume axis","Waveform select","Visual pitch guide","Mute/smooth controls"],"iterateIdeas":["Scale snapping","Recording","Two-hand touch","FX chain (delay/reverb)"],"audience":"Educators, musicians, installations","difficulty":"intermediate","keywords":["theremin","gesture","webaudio","pitch"]},{"id":"gravity-sim","name":"Gravity sim","category":"3d-sim","tagline":"Masses that pull each other","summary":"N-body style gravity playground with trails.","purpose":"Orbital mechanics intuition and mesmerizing science toys.","bestFor":["Physics labs","Orbit demos","Screensaver science","Game gravity sandboxes"],"features":["Multiple bodies","Gravitational attraction","Trails","Add/drag masses","Time scale"],"iterateIdeas":["Elastic collisions toggle","Solar system preset","Black hole well","2D/3D switch"],"audience":"Educators, space nerds, designers","difficulty":"intermediate","keywords":["gravity","nbody","orbit","physics"]},{"id":"photo-booth","name":"Photo booth","category":"creative","tagline":"Snap, filter, share the strip","summary":"Camera capture with filters and multi-frame strips.","purpose":"Events, brand activations, and playful social capture flows.","bestFor":["Event booths","Wedding/party pages","Brand activations","Team icebreakers"],"features":["Webcam capture","Filters/stickers","Countdown","Strip layout","Download image"],"iterateIdeas":["GIF/video export","Printer-friendly layout","QR to download","Moderation blur"],"audience":"Event hosts, brands, social apps","difficulty":"beginner","keywords":["camera","booth","filters","event"]},{"id":"budget-planner","name":"Budget planner","category":"productivity","tagline":"Money in, money out, plan ahead","summary":"Income/expense categories, budgets, and simple charts.","purpose":"Personal finance UX and teaching money basics with clear totals.","bestFor":["Personal budgeting","Student money labs","Freelancer cashflow","Finance onboarding demos"],"features":["Income/expense entries","Categories","Monthly budget caps","Summary charts","Local persistence"],"iterateIdeas":["CSV import","Recurring items","Goals and envelopes","Multi-currency"],"audience":"Individuals, educators, fintech demos","difficulty":"intermediate","keywords":["budget","finance","expenses","money"]},{"id":"probability-lab","name":"Probability lab","category":"math-science","tagline":"Randomness you can experiment with","summary":"Dice, coins, distributions, and Monte Carlo style demos.","purpose":"Build intuition for chance—classrooms and product risk talks.","bestFor":["Stats classrooms","Monte Carlo demos","Risk workshops","Game design odds"],"features":["Dice/coin sims","Distribution charts","Sample size controls","Histogram updates","Explainers"],"iterateIdeas":["Bayesian update demo","Custom PDF sampling","Hypothesis test toy","Export trials"],"audience":"Students, teachers, analysts","difficulty":"intermediate","keywords":["probability","stats","random","montecarlo"]},{"id":"platformer","name":"Platformer","category":"game","tagline":"Run, jump, reach the flag","summary":"Side-view platforms, gaps, enemies, and checkpoints.","purpose":"Core 2D game feel: coyote time, variable jump, camera follow.","bestFor":["2D game-feel labs","Level design practice","Kids platformer jams","Physics tuning demos"],"features":["Run/jump controls","Platforms and hazards","Coins/score","Checkpoints","Camera follow"],"iterateIdeas":["Double jump / wall jump","Moving platforms","Boss room","Level select map"],"audience":"Game designers, jam teams","difficulty":"intermediate","keywords":["platformer","jump","2d","level"]},{"id":"terrain-flyover","name":"Terrain flyover","category":"3d-sim","tagline":"Fly across generated land","summary":"Heightmap terrain with camera flyover and lighting.","purpose":"World previews, strategy map vibes, and landscape storytelling.","bestFor":["World trailer vibes","Strategy map backdrops","Geo viz stylization","Flight camera demos"],"features":["Heightmap terrain","Fly/orbit camera","Sun light and fog","Optional water plane","Performance LOD-ish simplicity"],"iterateIdeas":["Procedural rivers","Biome colors","Day cycle","Drop pins on peaks"],"audience":"3D learners, worldbuilders, marketers","difficulty":"advanced","keywords":["terrain","flyover","heightmap","3d"]},{"id":"flow-field","name":"Flow field","category":"creative","tagline":"Particles that follow invisible wind","summary":"Noise-driven flow field painting with trails.","purpose":"Hypnotic generative art and soft brand backgrounds.","bestFor":["Generative art shows","Album visuals","Calm websites","Creative coding classes"],"features":["Noise field","Particle advection","Trail fade","Color modes","Seed control"],"iterateIdeas":["Interactive repulsors","Export high-res","Multi-layer fields","Audio-modulated noise"],"audience":"Creative coders, designers","difficulty":"beginner","keywords":["flow","noise","particles","generative"]},{"id":"chord-player","name":"Chord player","category":"music","tagline":"Tap a chord, hear harmony","summary":"Chord pads with progressions and voicings.","purpose":"Songwriting helpers and harmony education on the web.","bestFor":["Songwriting sketches","Music theory class","Band practice pads","Worship/live chord sheets"],"features":["Chord pad grid","Progression player","Key select","Inversion/voicing","Tempo for patterns"],"iterateIdeas":["Lyric line attach","Roman numeral view","MIDI out","Custom progressions save"],"audience":"Songwriters, teachers, hobbyists","difficulty":"beginner","keywords":["chords","harmony","music","pads"]},{"id":"fluid-ripples","name":"Fluid ripples","category":"creative","tagline":"Touch the water; watch ripples spread","summary":"2D wave/ripple sim responding to pointer.","purpose":"Satisfying micro-interaction for heroes and playful UIs.","bestFor":["Landing micro-interactions","Water brand moments","Kids sensory pages","Shader learning demos"],"features":["Ripple propagation","Pointer impulses","Damping controls","Color/refraction stylization","Canvas/WebGL render"],"iterateIdeas":["Rain mode","Floating objects","Metaball merge","Mobile multi-touch"],"audience":"Designers, creative devs","difficulty":"intermediate","keywords":["fluid","ripples","water","vfx"]},{"id":"notes-app","name":"Notes app","category":"productivity","tagline":"Capture thoughts; find them later","summary":"Create, edit, list, and search notes with local persistence.","purpose":"Baseline CRUD productivity app—great first Build ship.","bestFor":["Personal notes","Meeting scratchpads","Markdown demo apps","Offline-first UX demos"],"features":["Note list","Editor","Search","Create/delete","Local storage"],"iterateIdeas":["Tags and folders","Markdown preview","Pin favorites","Export all notes"],"audience":"Students, writers, general users","difficulty":"beginner","keywords":["notes","crud","markdown","productivity"],"practiceOrder":3},{"id":"fourier-drawing","name":"Fourier drawing","category":"math-science","tagline":"Epicycles that draw your shape","summary":"Decompose a path into rotating circles (Fourier series) and replay the drawing.","purpose":"Stunning math communication and “how signals rebuild shapes” teaching.","bestFor":["Fourier series teaching","Math art performances","Signal processing intros","Conference openers"],"features":["Path input or preset","Epicycle animation","Harmonic count control","Speed control","Trace the reconstructed path"],"iterateIdeas":["Draw custom path with pointer","Complex-plane view","Audio of harmonics (playful)","Export animation"],"audience":"Educators, math communicators, artists","difficulty":"advanced","keywords":["fourier","epicycles","math","drawing"]}],"CATEGORY_META":{"game":{"label":"Games","description":"Playable interactive loops — score, controls, levels"},"creative":{"label":"Creative / Visual","description":"Visual experiments, generative art, media toys"},"music":{"label":"Music / Audio","description":"Rhythm, synths, visualizers, sound-first tools"},"3d-sim":{"label":"3D & Simulation","description":"Spatial, physical, and particle explorations"},"productivity":{"label":"Productivity","description":"Work, habits, notes, and planning apps"},"math-science":{"label":"Math & Science","description":"Formulas, probability, networks, lab toys"},"web":{"label":"Web & Brand","description":"Landing pages, portfolios, public-facing sites"},"utility":{"label":"Utility","description":"Small tools you use immediately"}},"ALL_CATEGORIES":["game","creative","music","3d-sim","productivity","math-science","web","utility"],"DIFFICULTY_META":{"beginner":{"label":"Beginner","blurb":"Ship in one sitting"},"intermediate":{"label":"Intermediate","blurb":"A few systems to tune"},"advanced":{"label":"Advanced","blurb":"Deeper mechanics or math"}}};
+const ICON = { game:"🎮", creative:"✨", music:"♪", "3d-sim":"🌐", productivity:"📋", "math-science":"∑", web:"◈", utility:"⚡" };
 let DATA = null;
-
-function esc(s) {
-  return String(s).replace(/[&<>"']/g, (c) =>
-    ({ "&": "&", "<": "<", ">": ">", '"': """, "'": "&#39;" })[c],
-  );
-}
-
-function route() {
-  const hash = location.hash.replace(/^#\/?/, "");
-  if (hash.startsWith("templates/")) {
-    return { name: "detail", id: decodeURIComponent(hash.slice("templates/".length)) };
-  }
-  return { name: "home" };
-}
-
-function cardHtml(t) {
-  const cat = DATA.CATEGORY_META[t.category];
-  const diff = DATA.DIFFICULTY_META[t.difficulty];
-  return `<a class="card" href="#/templates/${encodeURIComponent(t.id)}">
-    <div class="card-top">
-      <div class="card-icon">${ICON[t.category] || "•"}</div>
-      <span class="card-cat">${esc(cat.labelKo)}</span>
-    </div>
-    <h3>${esc(t.nameKo)}</h3>
-    <p class="en">${esc(t.name)}</p>
-    <p class="tagline">${esc(t.tagline)}</p>
-    <div class="card-foot"><span class="diff">${esc(diff.label)}</span><span class="more">상세 보기</span></div>
-  </a>`;
-}
-
-function renderHome() {
-  const { templates, CATEGORY_META, ALL_CATEGORIES } = DATA;
-  const counts = Object.fromEntries(ALL_CATEGORIES.map((c) => [c, 0]));
-  templates.forEach((t) => {
-    counts[t.category] += 1;
-  });
-  return `
-  <main>
-    <section class="wrap hero">
-      <p class="badge">✦ Grok Build · Artifacts</p>
-      <h1>템플릿 용도 가이드</h1>
-      <p class="lead">Build 모드 아티팩트에 있는 템플릿 <strong style="color:var(--fg)">${templates.length}종</strong>의 목적, 적합한 사용 장면, 핵심 기능, 확장 아이디어를 한곳에서 살펴보세요.</p>
-      <div class="stats">
-        <div class="stat"><div class="label">템플릿</div><div class="value">${templates.length}</div><div class="hint">전체 아티팩트</div></div>
-        <div class="stat"><div class="label">카테고리</div><div class="value">${ALL_CATEGORIES.length}</div><div class="hint">게임부터 생산성까지</div></div>
-        <div class="stat"><div class="label">활용 축</div><div class="value">4</div><div class="hint">용도 · 장면 · 기능 · 확장</div></div>
-      </div>
-    </section>
-    <section class="catalog" id="catalog">
-      <div class="wrap">
-        <div class="catalog-head">
-          <div>
-            <h2>카탈로그</h2>
-            <p class="sub">카테고리와 검색으로 걸러 상세 페이지로 이동하세요.</p>
-          </div>
-          <div class="search-wrap">
-            <span class="icon">⌕</span>
-            <input id="search" type="search" placeholder="이름, 용도, 키워드 검색…" aria-label="템플릿 검색" />
-          </div>
-        </div>
-        <div class="chips" id="chips">
-          <button type="button" class="chip active" data-cat="all">전체 <span class="count">${templates.length}</span></button>
-          ${ALL_CATEGORIES.map(
-            (c) =>
-              `<button type="button" class="chip" data-cat="${c}">${esc(CATEGORY_META[c].labelKo)} <span class="count">${counts[c]}</span></button>`,
-          ).join("")}
-        </div>
-        <p class="result-meta" id="result-meta"></p>
-        <div class="grid" id="grid"></div>
-        <div class="empty hidden" id="empty">
-          <p style="font-weight:500;color:var(--fg)">검색 결과가 없습니다</p>
-          <p style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem">다른 키워드를 쓰거나 카테고리 필터를 해제해 보세요.</p>
-          <button type="button" id="reset-filters">필터 초기화</button>
-        </div>
-      </div>
-    </section>
-    <section class="how" id="how-to">
-      <div class="wrap">
-        <h2>템플릿을 고르는 방법</h2>
-        <div class="how-grid">
-          <article class="how-card"><div class="step">01</div><h3>목표를 한 문장으로</h3><p>‘누구에게 무엇을 보여/하게 할 것인가’를 먼저 정하세요. 마케팅이면 랜딩·바이오, 놀이면 게임, 설명이면 시뮬·수학 템플릿이 잘 맞습니다.</p></article>
-          <article class="how-card"><div class="step">02</div><h3>카테고리로 좁히기</h3><p>8개 카테고리로 1차 필터링한 뒤, 상세 페이지의 ‘이런 때 쓰세요’와 ‘확장 아이디어’를 보고 한 개를 고르세요.</p></article>
-          <article class="how-card"><div class="step">03</div><h3>Build에서 이터레이션</h3><p>템플릿 이름을 프롬프트에 넣고 톤·데이터·CTA를 구체화하세요. 한 턴에 기능 1~3개만 수정하면 품질이 안정적입니다.</p></article>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer><div class="wrap footer-inner"><p>Grok Build 아티팩트 템플릿 레퍼런스 · 교육·선택 가이드용</p><p style="color:var(--faint)">${templates.length} templates documented</p></div></footer>`;
-}
-
-function bindHome() {
-  let query = "";
-  let category = "all";
-  const grid = document.getElementById("grid");
-  const empty = document.getElementById("empty");
-  const meta = document.getElementById("result-meta");
-  const search = document.getElementById("search");
-  const chips = document.getElementById("chips");
-
-  function paint() {
-    const q = query.trim().toLowerCase();
-    const filtered = DATA.templates.filter((t) => {
-      if (category !== "all" && t.category !== category) return false;
-      if (!q) return true;
-      const hay = [
-        t.name,
-        t.nameKo,
-        t.tagline,
-        t.summary,
-        t.purpose,
-        t.audience,
-        ...t.keywords,
-        ...t.bestFor,
-      ]
-        .join(" ")
-        .toLowerCase();
-      return hay.includes(q);
-    });
-    meta.innerHTML =
-      `<strong style="color:var(--fg)">${filtered.length}</strong>개 템플릿` +
-      (category !== "all" ? ` · ${esc(DATA.CATEGORY_META[category].labelKo)}` : "") +
-      (q ? ` · “${esc(query)}”` : "");
-    if (!filtered.length) {
-      grid.innerHTML = "";
-      empty.classList.remove("hidden");
-    } else {
-      empty.classList.add("hidden");
-      grid.innerHTML = filtered.map(cardHtml).join("");
-    }
-  }
-
-  search.addEventListener("input", (e) => {
-    query = e.target.value;
-    paint();
-  });
-  chips.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-cat]");
-    if (!btn) return;
-    category = btn.getAttribute("data-cat");
-    chips.querySelectorAll(".chip").forEach((c) => c.classList.toggle("active", c === btn));
-    paint();
-  });
-  document.getElementById("reset-filters").addEventListener("click", () => {
-    query = "";
-    category = "all";
-    search.value = "";
-    chips
-      .querySelectorAll(".chip")
-      .forEach((c) => c.classList.toggle("active", c.getAttribute("data-cat") === "all"));
-    paint();
-  });
-  document.getElementById("nav-how").addEventListener("click", (e) => {
-    e.preventDefault();
-    location.hash = "#/";
-    setTimeout(() => document.getElementById("how-to")?.scrollIntoView({ behavior: "smooth" }), 50);
-  });
-  paint();
-}
-
-function renderDetail(id) {
-  const t = DATA.templates.find((x) => x.id === id);
-  if (!t) {
-    return `<main class="wrap detail" style="text-align:center;padding:5rem 1rem">
-      <h1 style="font-family:var(--font-display)">템플릿을 찾을 수 없습니다</h1>
-      <p style="color:var(--muted)">목록에 없는 ID이거나 주소가 잘못되었습니다.</p>
-      <p style="margin-top:1.5rem"><a href="#/" style="background:var(--primary);color:var(--primary-fg);padding:0.65rem 1rem;border-radius:0.75rem;font-weight:600">카탈로그로 돌아가기</a></p>
-    </main>`;
-  }
-  const cat = DATA.CATEGORY_META[t.category];
-  const diff = DATA.DIFFICULTY_META[t.difficulty];
-  const index = DATA.templates.findIndex((x) => x.id === t.id);
-  const prev = index > 0 ? DATA.templates[index - 1] : null;
-  const next = index < DATA.templates.length - 1 ? DATA.templates[index + 1] : null;
-  const related = DATA.templates
-    .filter((x) => x.category === t.category && x.id !== t.id)
-    .slice(0, 3);
-  const prompt = `"${t.name}" 템플릿을 기반으로 만들어 줘.\n목표: ${t.tagline}\n핵심: ${t.bestFor[0]}\n톤: 세련되고 모바일 우선. 동작하는 프리뷰까지 완성해 줘.`;
-
-  return `
-  <main class="wrap detail">
-    <a class="back" href="#/">← 카탈로그로</a>
-    <div class="detail-grid">
-      <article>
-        <div class="pills">
-          <span class="pill">${ICON[t.category] || ""} ${esc(cat.labelKo)}</span>
-          <span class="pill faint">${esc(diff.label)} · ${esc(diff.labelEn)}</span>
-          <span class="pill faint" style="font-family:var(--font-mono)">#${String(index + 1).padStart(2, "0")}</span>
-        </div>
-        <div class="title-row">
-          <div class="title-icon">${ICON[t.category] || "•"}</div>
-          <div>
-            <h1>${esc(t.nameKo)}</h1>
-            <div class="en-name">${esc(t.name)}</div>
-            <p class="tag">${esc(t.tagline)}</p>
-          </div>
-        </div>
-        <section class="block">
-          <h2>◎ 한줄 요약</h2>
-          <p>${esc(t.summary)}</p>
-        </section>
-        <section class="block purpose-box">
-          <h2>이 템플릿의 용도</h2>
-          <p>${esc(t.purpose)}</p>
-        </section>
-        <div class="two-col">
-          <div class="list-box"><h2>✓ 이런 때 쓰세요</h2><ul>${t.bestFor.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>
-          <div class="list-box"><h2>⚙ 기본으로 갖추는 것</h2><ul>${t.features.map((i) => `<li>${esc(i)}</li>`).join("")}</ul></div>
-        </div>
-        <section class="block">
-          <h2>💡 확장 아이디어</h2>
-          <p style="font-size:0.875rem;margin:0 0 0.5rem">Build 채팅에서 이어서 요청하면 좋은 변형입니다.</p>
-          <div class="ideas">${t.iterateIdeas.map((i) => `<div class="idea">${esc(i)}</div>`).join("")}</div>
-        </section>
-        <div class="audience">
-          <div>👥</div>
-          <div><strong style="color:var(--fg);font-size:0.875rem">주요 사용자</strong><p style="margin:0.35rem 0 0">${esc(t.audience)}</p></div>
-        </div>
-        <section class="block">
-          <h2 style="font-size:0.9rem">프롬프트 시드</h2>
-          <pre class="prompt">${esc(prompt)}</pre>
-        </section>
-      </article>
-      <aside class="aside">
-        <div class="aside-card">
-          <h3>카테고리</h3>
-          <p style="margin:0;font-weight:500;color:var(--fg)">${esc(cat.labelKo)}</p>
-          <p style="margin:0.35rem 0 0;font-size:0.875rem;color:var(--muted)">${esc(cat.description)}</p>
-        </div>
-        <div class="aside-card">
-          <h3>키워드</h3>
-          <div class="keywords">${t.keywords.map((k) => `<span>${esc(k)}</span>`).join("")}</div>
-        </div>
-        ${
-          related.length
-            ? `<div class="aside-card related">
-          <h3>같은 카테고리</h3>
-          ${related
-            .map(
-              (r) =>
-                `<a href="#/templates/${encodeURIComponent(r.id)}"><span class="ko">${esc(r.nameKo)}</span><span class="en">${esc(r.name)}</span></a>`,
-            )
-            .join("")}
-        </div>`
-            : ""
-        }
-      </aside>
-    </div>
-    <nav class="nav-pair">
-      ${
-        prev
-          ? `<a href="#/templates/${encodeURIComponent(prev.id)}"><div class="lab">이전</div><div class="ko">${esc(prev.nameKo)}</div><div class="en">${esc(prev.name)}</div></a>`
-          : "<div></div>"
-      }
-      ${
-        next
-          ? `<a class="right" href="#/templates/${encodeURIComponent(next.id)}"><div class="lab">다음</div><div class="ko">${esc(next.nameKo)}</div><div class="en">${esc(next.name)}</div></a>`
-          : ""
-      }
-    </nav>
-  </main>`;
-}
-
-async function mount() {
-  if (!DATA) {
-    const url = window.__DATA_URL__ || "/data.json";
-    DATA = await fetch(url).then((r) => r.json());
-  }
-  const r = route();
-  const app = document.getElementById("app");
-  if (r.name === "detail") {
-    app.innerHTML = renderDetail(r.id);
-    const t = DATA.templates.find((x) => x.id === r.id);
-    document.title = t ? `${t.nameKo} (${t.name}) — Build Templates` : "Template";
-  } else {
-    app.innerHTML = renderHome();
-    document.title = "Grok Build Templates — 아티팩트 템플릿 용도 가이드";
-    bindHome();
-  }
-  window.scrollTo(0, 0);
-}
-
-window.addEventListener("hashchange", mount);
-mount();
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&","<":"<",">":">","\"":""","'":"&#39;"}[c]));}
+function route(){const h=location.hash.replace(/^#\\/?/,"");if(h.startsWith("templates/"))return{name:"detail",id:decodeURIComponent(h.slice(10))};return{name:"home"};}
+function cardHtml(t){const cat=DATA.CATEGORY_META[t.category];const diff=DATA.DIFFICULTY_META[t.difficulty];return `<a class="card" href="#/templates/${encodeURIComponent(t.id)}"><div class="card-top"><div class="card-icon">${ICON[t.category]||"•"}</div><span class="card-cat">${esc(cat.label)}</span></div><h3>${esc(t.name)}</h3><p class="tagline">${esc(t.tagline)}</p><div class="card-foot"><span class="diff">${esc(diff.label)}</span><span class="more">Open guide</span></div></a>`;}
+function renderHome(){const {templates,CATEGORY_META,ALL_CATEGORIES}=DATA;const counts=Object.fromEntries(ALL_CATEGORIES.map(c=>[c,0]));templates.forEach(t=>counts[t.category]++);return `
+<main>
+<section class="wrap hero">
+<p class="badge">✦ AI Academy · Grok Build</p>
+<h1>Pick a template. Ship with web Build.</h1>
+<p class="lead">A practical catalog of <strong style="color:var(--fg)">${templates.length} Grok Build templates</strong> — purpose, best uses, features, and prompt seeds — plus a playbook for web Grok Build.</p>
+<div class="stats">
+<div class="stat"><div class="label">Templates</div><div class="value">${templates.length}</div><div class="hint">Full artifact set</div></div>
+<div class="stat"><div class="label">Categories</div><div class="value">${ALL_CATEGORIES.length}</div><div class="hint">Games to utilities</div></div>
+<div class="stat"><div class="label">Axes</div><div class="value">4</div><div class="hint">Purpose · scene · features · iterate</div></div>
+</div>
+</section>
+<section class="catalog" id="catalog">
+<div class="wrap">
+<div class="catalog-head"><div><h2>Template catalog</h2><p class="sub">Filter, search, open a detail for prompt seeds.</p></div>
+<div class="search-wrap"><span class="icon">⌕</span><input id="search" type="search" placeholder="Search name, purpose, keywords…" aria-label="Search"/></div></div>
+<div class="chips" id="chips"><button type="button" class="chip active" data-cat="all">All <span class="count">${templates.length}</span></button>
+${ALL_CATEGORIES.map(c=>`<button type="button" class="chip" data-cat="${c}">${esc(CATEGORY_META[c].label)} <span class="count">${counts[c]}</span></button>`).join("")}
+</div>
+<p class="result-meta" id="result-meta"></p>
+<div class="grid" id="grid"></div>
+<div class="empty hidden" id="empty"><p style="font-weight:500;color:var(--fg)">No matches</p><button type="button" id="reset-filters">Reset filters</button></div>
+</div></section>
+<section class="how" id="how-to"><div class="wrap"><h2>How to use this with web Build</h2>
+<div class="how-grid">
+<article class="how-card"><div class="step">01</div><h3>One sentence goal</h3><p>Who should do what? Marketing → landing/bio; play → games; explain → sim/math.</p></article>
+<article class="how-card"><div class="step">02</div><h3>Pick a template</h3><p>Filter by category, open detail, copy the prompt seed.</p></article>
+<article class="how-card"><div class="step">03</div><h3>Iterate then Publish</h3><p>1–3 changes per turn. When ready, Publish in Build UI (e.g. slug aiacademy → aiacademy.grok.me if available).</p></article>
+</div></div></section>
+</main>
+<footer><div class="wrap footer-inner"><p>AI Academy · Grok Build reference</p><p style="color:var(--faint)">${templates.length} templates</p></div></footer>`;}
+function bindHome(){let query="",category="all";const grid=document.getElementById("grid"),empty=document.getElementById("empty"),meta=document.getElementById("result-meta"),search=document.getElementById("search"),chips=document.getElementById("chips");
+function paint(){const q=query.trim().toLowerCase();const filtered=DATA.templates.filter(t=>{if(category!=="all"&&t.category!==category)return false;if(!q)return true;const hay=[t.name,t.tagline,t.summary,t.purpose,t.audience,...t.keywords,...t.bestFor].join(" ").toLowerCase();return hay.includes(q);});
+meta.innerHTML=`<strong style="color:var(--fg)">${filtered.length}</strong> templates`+(category!=="all"?` · ${esc(DATA.CATEGORY_META[category].label)}`:"")+(q?` · “${esc(query)}”`:"");
+if(!filtered.length){grid.innerHTML="";empty.classList.remove("hidden");}else{empty.classList.add("hidden");grid.innerHTML=filtered.map(cardHtml).join("");}}
+search.addEventListener("input",e=>{query=e.target.value;paint();});
+chips.addEventListener("click",e=>{const btn=e.target.closest("[data-cat]");if(!btn)return;category=btn.getAttribute("data-cat");chips.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c===btn));paint();});
+document.getElementById("reset-filters").addEventListener("click",()=>{query="";category="all";search.value="";chips.querySelectorAll(".chip").forEach(c=>c.classList.toggle("active",c.getAttribute("data-cat")==="all"));paint();});
+document.getElementById("nav-how")?.addEventListener("click",e=>{e.preventDefault();document.getElementById("how-to")?.scrollIntoView({behavior:"smooth"});});
+paint();}
+function renderDetail(id){const t=DATA.templates.find(x=>x.id===id);if(!t)return `<main class="wrap detail" style="text-align:center;padding:5rem 1rem"><h1 style="font-family:var(--font-display)">Template not found</h1><p style="margin-top:1.5rem"><a href="#/" style="background:var(--primary);color:var(--primary-fg);padding:0.65rem 1rem;border-radius:0.75rem;font-weight:600">Back to catalog</a></p></main>`;
+const cat=DATA.CATEGORY_META[t.category];const diff=DATA.DIFFICULTY_META[t.difficulty];const index=DATA.templates.findIndex(x=>x.id===t.id);
+const prev=index>0?DATA.templates[index-1]:null;const next=index<DATA.templates.length-1?DATA.templates[index+1]:null;
+const related=DATA.templates.filter(x=>x.category===t.category&&x.id!==t.id).slice(0,3);
+const prompt=`Build a "${t.name}" using the Grok Build template as the base.\nGoal: ${t.tagline}\nPrimary use case: ${t.bestFor[0]}\nRequirements: polished UI, mobile-first, working preview.`;
+return `<main class="wrap detail"><a class="back" href="#/">← Catalog</a>
+<div class="detail-grid"><article>
+<div class="pills"><span class="pill">${ICON[t.category]||""} ${esc(cat.label)}</span><span class="pill faint">${esc(diff.label)}</span></div>
+<div class="title-row"><div class="title-icon">${ICON[t.category]||"•"}</div><div><h1>${esc(t.name)}</h1><p class="tag">${esc(t.tagline)}</p></div></div>
+<section class="block"><h2>Snapshot</h2><p>${esc(t.summary)}</p></section>
+<section class="block purpose-box"><h2>What this is for</h2><p>${esc(t.purpose)}</p></section>
+<div class="two-col"><div class="list-box"><h2>Best when</h2><ul>${t.bestFor.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>
+<div class="list-box"><h2>Usually includes</h2><ul>${t.features.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div></div>
+<section class="block"><h2>Iteration ideas</h2><div class="ideas">${t.iterateIdeas.map(i=>`<div class="idea">${esc(i)}</div>`).join("")}</div></section>
+<div class="audience"><div>👥</div><div><strong style="color:var(--fg);font-size:0.875rem">Audience</strong><p style="margin:0.35rem 0 0">${esc(t.audience)}</p></div></div>
+<section class="block"><h2 style="font-size:0.9rem">Prompt seed</h2><pre class="prompt">${esc(prompt)}</pre></section>
+</article>
+<aside class="aside"><div class="aside-card"><h3>Category</h3><p style="margin:0;font-weight:500;color:var(--fg)">${esc(cat.label)}</p><p style="margin:0.35rem 0 0;font-size:0.875rem;color:var(--muted)">${esc(cat.description)}</p></div>
+<div class="aside-card"><h3>Keywords</h3><div class="keywords">${t.keywords.map(k=>`<span>${esc(k)}</span>`).join("")}</div></div>
+${related.length?`<div class="aside-card related"><h3>Related</h3>${related.map(r=>`<a href="#/templates/${encodeURIComponent(r.id)}"><span class="ko">${esc(r.name)}</span><span class="en">${esc(r.tagline)}</span></a>`).join("")}</div>`:""}
+</aside></div>
+<nav class="nav-pair">${prev?`<a href="#/templates/${encodeURIComponent(prev.id)}"><div class="lab">Previous</div><div class="ko">${esc(prev.name)}</div></a>`:"<div></div>"}
+${next?`<a class="right" href="#/templates/${encodeURIComponent(next.id)}"><div class="lab">Next</div><div class="ko">${esc(next.name)}</div></a>`:""}</nav>
+</main>`;}
+function mount(){DATA=EMBEDDED_DATA;const r=route();const app=document.getElementById("app");
+if(r.name==="detail"){app.innerHTML=renderDetail(r.id);const t=DATA.templates.find(x=>x.id===r.id);document.title=t?`${t.name} — AI Academy`:"Template — AI Academy";}
+else{app.innerHTML=renderHome();document.title="AI Academy — Web Grok Build templates & how-to";bindHome();}
+window.scrollTo(0,0);}
+window.addEventListener("hashchange",mount);mount();
